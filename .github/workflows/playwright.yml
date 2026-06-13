@@ -29,4 +29,10 @@ jobs:
       run: poetry run playwright install --with-deps chromium
 
     - name: Шаг 6. Запуск автотестов
+      env:
+        BASE_URL: ${{ secrets.BASE_URL }}
+        STANDARD_USER: ${{ secrets.STANDARD_USER }}
+        LOCKED_OUT_USER: ${{ secrets.LOCKED_OUT_USER }}
+        PROBLEM_USER: ${{ secrets.PROBLEM_USER }}
+        VALID_PASSWORD: ${{ secrets.VALID_PASSWORD }}
       run: poetry run pytest -v
