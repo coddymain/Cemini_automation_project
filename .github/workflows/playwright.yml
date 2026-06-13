@@ -1,0 +1,32 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Шаг 1. Копирование кода из репозитория
+      uses: actions/checkout@v4
+
+    - name: Шаг 2. Установка Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Шаг 3. Установка менеджера пакетов Poetry
+      run: pip install poetry
+
+    - name: Шаг 4. Установка зависимостей проекта
+      run: poetry install
+
+    - name: Шаг 5. Установка браузера Chromium для Playwright
+      run: poetry run playwright install --with-deps chromium
+
+    - name: Шаг 6. Запуск автотестов
+      run: poetry run pytest -v
