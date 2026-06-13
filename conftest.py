@@ -1,0 +1,73 @@
+import pytest
+import allure
+from slugify import slugify
+from typing import Dict, Any
+from core.settings import config
+from playwright.sync_api import Page
+from pages.login_page import LoginPage
+from pages.inventory_page import InventoryPage
+from pages.cart_page import CartPage
+from pages.checkout_page import CheckoutPage
+
+@pytest.fixture(scope="session")
+def browser_context_args(browser_context_args: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Переопределяем встроенную фикстуру pytest-playwright.
+    Здесь мы задаем настройки для контекста браузера (всех новых страниц).
+    """
+    return {
+        **browser_context_args,
+        "base_url": config.BASE_URL,
+        "viewport": {"width": 1512, "height": 982},
+        "ignore_https_errors": True,
+    }
+
+@pytest.fixture
+def login_page(page: Page) -> LoginPage:
+    """Фикстура для инициализации LoginPage."""
+    return LoginPage(page)
+
+@pytest.fixture
+def inventory_page(page: Page) -> InventoryPage:
+    """Фикстура для инициализации InventoryPage."""
+    return InventoryPage(page)
+
+@pytest.fixture
+def cart_page(page: Page) -> CartPage:
+    """Фикстура для инициализации CartPage."""
+    return CartPage(page)
+
+@pytest.fixture
+def checkout_page(page: Page) -> CheckoutPage:
+    """Фикстура для инициализации"""
+    return CheckoutPage(page)
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    """
+    Хук (перехватчик) Pytest. Вызывается на разных стадиях жизненного цикла теста (setup, call, teardown).
+    Мы используем его, чтобы автоматически делать скриншот при падении теста и передавать его в Allure.
+    """
+    # Ждем, пока Pytest выполнит текущую фазу теста и отдаст нам результат
+    outcome = yield
+    report = outcome.get_result()
+
+    # Фаза 'call' - это выполнение самого тела теста. 
+    # Проверяем: если мы находимся в фазе 'call' и тест завершился с ошибкой (failed)
+    if report.when == "call" and report.failed:
+        # Пытаемся получить объект 'page' (инстанс браузера Playwright) из фикстур упавшего теста
+        page = item.funcargs.get('page')
+        if page:
+            try:
+                # Просим Playwright сделать скриншот текущего состояния страницы прямо в оперативную память
+                screenshot = page.screenshot(type='png', full_page=True)
+                
+                # Прикрепляем полученный байтовый массив скриншота к Allure отчету, 
+                # используя безопасное имя файла (slugify) на основе имени теста
+                allure.attach(
+                    screenshot,
+                    name=f"Screenshot_{slugify(item.name)}",
+                    attachment_type=allure.attachment_type.PNG
+                )
+            except Exception as e:
+                print(f"Не удалось сделать скриншот для Allure: {e}")

@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Environment variables
+.env
+.env.local
+
+# Pytest / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+test-results/
+
+# Allure
+allure-results/
+allure-report/
+
+# Playwright
+test-results/
+
+# macOS
+.DS_Store
+
+# Gemini
+GEMINI.md
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
