@@ -5,9 +5,19 @@ from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
+from pages.checkout_overview_page import CheckoutOverviewPage
+from pages.checkout_complete_page import CheckoutCompletePage
 from data.models import test_customer
 
-def test_full_checkout_flow(page: Page, login_page: LoginPage, inventory_page: InventoryPage, cart_page: CartPage, checkout_page: CheckoutPage):
+def test_full_checkout_flow(
+    page: Page,
+    login_page: LoginPage,
+    inventory_page: InventoryPage,
+    cart_page: CartPage,
+    checkout_page: CheckoutPage,
+    checkout_overview_page: CheckoutOverviewPage,
+    checkout_complete_page: CheckoutCompletePage
+):
     """E2E тест: Полный цикл покупки товара."""
 
     # 1. Авторизация
@@ -35,9 +45,17 @@ def test_full_checkout_flow(page: Page, login_page: LoginPage, inventory_page: I
     checkout_page.fill_personal_info(test_customer)
     expect(page).to_have_url(f"{config.BASE_URL}checkout-step-two.html")
 
-    # 5. Оформление заказа: шаг 2
-    checkout_page.click_finish()
-    expect(page).to_have_url(f"{config.BASE_URL}checkout-complete.html")
+    # 5. Обзор заказа (Overview)
+    expect(checkout_overview_page.title).to_have_text("Checkout: Overview")
+    checkout_overview_page.finish_checkout()
 
-    # 6. Проверка успешного завершения!
-    expect(checkout_page.complete_header).to_have_text("Thank you for your order!")
+    # 6. Успешное завершение покупки
+    expect(page).to_have_url(f"{config.BASE_URL}checkout-complete.html")
+    expect(checkout_complete_page.title).to_have_text("Checkout: Complete!")
+    expect(checkout_complete_page.complete_header).to_have_text("Thank you for your order!")
+    
+    # 7. Возвращаемся на главную
+    checkout_complete_page.go_back_home()
+    expect(page).to_have_url(f"{config.BASE_URL}inventory.html")
+
+   

@@ -1,5 +1,6 @@
 from playwright.sync_api import Locator
 from pages.base_page import BasePage
+from loguru import logger
 
 class LoginPage(BasePage):
     """
@@ -27,6 +28,8 @@ class LoginPage(BasePage):
         Метод для авторизации на сайте.
         Заполняет поля логина и пароля, затем нажимает кнопку входа.
         """
+        logger.info(f"Выполняем вход под пользователем: {username}")
         self._username_input.fill(username)
         self._password_input.fill(password)
         self._login_button.click()
+        logger.success("Кнопка входа успешно нажата")

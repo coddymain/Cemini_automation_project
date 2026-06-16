@@ -1,0 +1,11 @@
+2026-06-16 16:08:50 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-06-16 16:08:50 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-06-16 16:08:50 | INFO     | pages.inventory_page:add_backpack_to_cart:25 - Добавляем рюкзак 'Sauce Labs Backpack' в корзину
+2026-06-16 16:08:50 | SUCCESS  | pages.inventory_page:add_backpack_to_cart:27 - Рюкзак добавлен
+2026-06-16 16:08:50 | INFO     | pages.inventory_page:go_to_cart:30 - Кликаем по иконке корзины для перехода
+2026-06-16 16:08:51 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-06-16 16:08:51 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-06-16 16:08:52 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: locked_out_user
+2026-06-16 16:08:52 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-06-16 16:08:53 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-06-16 16:08:54 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата

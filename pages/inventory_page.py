@@ -1,5 +1,6 @@
 from playwright.sync_api import Locator
 from pages.base_page import BasePage
+from loguru import logger
 
 class InventoryPage(BasePage):
     """
@@ -21,10 +22,12 @@ class InventoryPage(BasePage):
     
     # Методы
     def add_backpack_to_cart(self) -> None:
-       self._add_backpack_button.click()
+        logger.info("Добавляем рюкзак 'Sauce Labs Backpack' в корзину")
+        self._add_backpack_button.click()
+        logger.success("Рюкзак добавлен")
 
     def go_to_cart(self) -> None:
+        logger.info("Кликаем по иконке корзины для перехода")
         self._cart_icon.click()
-        
 
     

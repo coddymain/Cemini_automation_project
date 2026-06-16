@@ -3,11 +3,17 @@ import allure
 from slugify import slugify
 from typing import Dict, Any
 from core.settings import config
+from core.logger import setup_logger
 from playwright.sync_api import Page
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
+from pages.checkout_overview_page import CheckoutOverviewPage
+from pages.checkout_complete_page import CheckoutCompletePage
+
+# Инициализируем настройки логгера для всего проекта при старте тестов
+setup_logger()
 
 @pytest.fixture(scope="session")
 def browser_context_args(browser_context_args: Dict[str, Any]) -> Dict[str, Any]:
@@ -42,6 +48,16 @@ def checkout_page(page: Page) -> CheckoutPage:
     """Фикстура для инициализации"""
     return CheckoutPage(page)
 
+@pytest.fixture
+def checkout_overview_page(page: Page) -> CheckoutOverviewPage:
+    """Фикстура для инициализации страницы Checkout Overview."""
+    return CheckoutOverviewPage(page)
+
+@pytest.fixture
+def checkout_complete_page(page: Page) -> CheckoutCompletePage:
+    """Фикстура для инициализации страницы успешного завершения заказа."""
+    return CheckoutCompletePage(page)
+
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     """
@@ -71,3 +87,13 @@ def pytest_runtest_makereport(item, call):
                 )
             except Exception as e:
                 print(f"Не удалось сделать скриншот для Allure: {e}")
+                
+            try:
+                # Также прикрепляем файл с нашими логами
+                allure.attach.file(
+                    "logs/test_run.log",
+                    name=f"Logs_{slugify(item.name)}",
+                    attachment_type=allure.attachment_type.TEXT
+                )
+            except Exception as e:
+                print(f"Не удалось прикрепить логи для Allure: {e}")
