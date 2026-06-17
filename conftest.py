@@ -67,15 +67,21 @@ def authenticated_page(page: Page) -> Page:
     # Сначала открываем базовый URL, чтобы уйти со страницы 'about:blank'. 
     # Иначе headless Chromium в CI блокирует установку кук для чужого домена.
     page.goto(config.BASE_URL)
-    
-    # Автоматически вытаскиваем "чистый" домен (www.saucedemo.com) из настроек
-    parsed_domain = urlparse(config.BASE_URL).hostname
+
+    # Получаем значение пользователя из конфига
+    cookie_value = config.STANDARD_USER
+
+    # === DEBUG LOGGING FOR CI ===
+    # Логируем значения, чтобы убедиться, что секреты GitHub прочитаны верно.
+    logger.info(f"Attempting to set cookie for domain 'www.saucedemo.com' with value: '{cookie_value}'")
+    if not cookie_value:
+        raise ValueError("CRITICAL: Cookie value is empty. Check the STANDARD_USER GitHub Secret.")
 
     page.context.add_cookies([
         {
             "name": "session-username",
-            "value": config.STANDARD_USER,
-            "domain": parsed_domain,
+            "value": cookie_value,
+            "domain": "www.saucedemo.com", # Жестко задаем домен, чтобы исключить ошибки парсинга BASE_URL
             "path": "/"
         }
     ])
