@@ -58,6 +58,19 @@ def checkout_complete_page(page: Page) -> CheckoutCompletePage:
     """Фикстура для инициализации страницы успешного завершения заказа."""
     return CheckoutCompletePage(page)
 
+@pytest.fixture
+def authenticated_page(page: Page) -> Page:
+    page.context.add_cookies([
+        {
+            "name": "session-username",
+            "value": config.STANDARD_USER,
+            'domain': "www.saucedemo.com",
+            "path":"/"
+        }
+    ])
+    return page
+
+
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     """
