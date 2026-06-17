@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","1495","test_successful_login[chromium]","tests","2026-06-17","passed","2026-06-17","","test_login","",""
+"","928","test_invalid_password[chromium]","tests","2026-06-17","passed","2026-06-17","","test_login","",""
+"Тест, который проверяет мгновенный доступ к инвентарю без UI-логина.","0","test_direct_inventory_access[chromium]","tests","2026-06-17","broken","2026-06-17","","test_api_bypass","",""
+"","1354","test_locked_out_user[chromium]","tests","2026-06-17","passed","2026-06-17","","test_login","",""
+"E2E тест: Полный цикл покупки товара.","2433","test_full_checkout_flow[chromium]","tests","2026-06-17","passed","2026-06-17","","test_e2e","",""
