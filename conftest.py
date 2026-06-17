@@ -75,7 +75,7 @@ def authenticated_page(page: Page) -> Page:
 
     # === DEBUG LOGGING FOR CI ===
     # Логируем значения, чтобы убедиться, что секреты GitHub прочитаны верно.
-    logger.info(f"Attempting to set cookie for domain 'www.saucedemo.com' with value: '{cookie_value}'")
+    logger.info(f"Attempting to set cookie for domain {config.BASE_URL} with value: '{cookie_value}'")
     if not cookie_value:
         raise ValueError("CRITICAL: Cookie value is empty. Check the STANDARD_USER GitHub Secret.")
 
