@@ -1,5 +1,6 @@
 import pytest
 import allure
+from urllib.parse import urlparse
 from slugify import slugify
 from typing import Dict, Any
 from core.settings import config
@@ -67,11 +68,15 @@ def authenticated_page(page: Page) -> Page:
     # Иначе headless Chromium в CI блокирует установку кук для чужого домена.
     page.goto(config.BASE_URL)
     
+    # Автоматически вытаскиваем "чистый" домен (www.saucedemo.com) из настроек
+    parsed_domain = urlparse(config.BASE_URL).hostname
+
     page.context.add_cookies([
         {
             "name": "session-username",
             "value": config.STANDARD_USER,
-            "url": config.BASE_URL
+            "domain": parsed_domain,
+            "path": "/"
         }
     ])
     return page
