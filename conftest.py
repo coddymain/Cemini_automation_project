@@ -11,6 +11,7 @@ from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
 from pages.checkout_overview_page import CheckoutOverviewPage
 from pages.checkout_complete_page import CheckoutCompletePage
+from loguru import logger
 
 # Инициализируем настройки логгера для всего проекта при старте тестов
 setup_logger()
@@ -60,12 +61,12 @@ def checkout_complete_page(page: Page) -> CheckoutCompletePage:
 
 @pytest.fixture
 def authenticated_page(page: Page) -> Page:
+    logger.debug("Устанавливаем cookie 'session-username' для обхода UI-логина")
     page.context.add_cookies([
         {
             "name": "session-username",
             "value": config.STANDARD_USER,
-            'domain': "www.saucedemo.com",
-            "path":"/"
+            "url": config.BASE_URL
         }
     ])
     return page

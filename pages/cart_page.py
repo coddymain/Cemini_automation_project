@@ -1,5 +1,6 @@
 from playwright.sync_api import Locator
 from pages.base_page import BasePage
+from loguru import logger
 
 class CartPage(BasePage):
 
@@ -14,4 +15,5 @@ class CartPage(BasePage):
     
     """Действия"""
     def click_checkout(self) -> None:
+        logger.info("Нажимаем кнопку 'Checkout' в корзине")
         self.checkout_button.click()

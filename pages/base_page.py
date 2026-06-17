@@ -1,4 +1,5 @@
 from playwright.sync_api import Page
+from loguru import logger
 
 class BasePage:
     """
@@ -14,4 +15,5 @@ class BasePage:
         Открывает страницу по заданному URL.
         Если URL не указан, открывает базовый URL, заданный в конфигурации.
         """
+        logger.info(f"Открываем страницу: {url}")
         self.page.goto(url)

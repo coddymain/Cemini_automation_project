@@ -8,6 +8,7 @@ from pages.checkout_page import CheckoutPage
 from pages.checkout_overview_page import CheckoutOverviewPage
 from pages.checkout_complete_page import CheckoutCompletePage
 from data.models import test_customer
+from loguru import logger
 
 def test_full_checkout_flow(
     page: Page,
@@ -19,6 +20,7 @@ def test_full_checkout_flow(
     checkout_complete_page: CheckoutCompletePage
 ):
     """E2E тест: Полный цикл покупки товара."""
+    logger.info("=== Запуск E2E теста: Полный цикл покупки ===")
 
     # 1. Авторизация
     login_page.open(config.BASE_URL)
