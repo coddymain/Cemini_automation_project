@@ -62,12 +62,16 @@ def checkout_complete_page(page: Page) -> CheckoutCompletePage:
 @pytest.fixture
 def authenticated_page(page: Page) -> Page:
     logger.debug("Устанавливаем cookie 'session-username' для обхода UI-логина")
+    
+    # Сначала открываем базовый URL, чтобы уйти со страницы 'about:blank'. 
+    # Иначе headless Chromium в CI блокирует установку кук для чужого домена.
+    page.goto(config.BASE_URL)
+    
     page.context.add_cookies([
         {
             "name": "session-username",
             "value": config.STANDARD_USER,
-            "domain": "www.saucedemo.com",
-            "path": "/"
+            "url": config.BASE_URL
         }
     ])
     return page
