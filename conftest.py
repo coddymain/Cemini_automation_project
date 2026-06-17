@@ -68,14 +68,25 @@ def authenticated_page(page: Page) -> Page:
     # Иначе headless Chromium в CI блокирует установку кук для чужого домена.
     page.goto(config.BASE_URL)
 
-    # Получаем значение пользователя из конфига
-    # В CI/CD окружениях (GitHub Actions) секреты могут содержать лишние пробелы или символы новой строки (\n).
-    # Метод .strip() надежно очищает строку от этих символов по краям.
+    # =====================================================================
+    # РЕШЕНИЕ ПРОБЛЕМЫ CI/CD: "Protocol error (Storage.setCookies)"
+    # =====================================================================
+    # В CI/CD (GitHub Actions) при вставке секретов часто случайно 
+    # захватываются невидимые символы переноса строки (\n) или пробелы.
+    # Строгий Headless Chromium моментально падает с ошибкой "Invalid cookie fields", 
+    # если попытаться передать такое значение в Cookie.
+    # Метод .strip() железобетонно очищает строку от этого "мусора" по краям.
     cookie_value = config.STANDARD_USER.strip()
+
+    # Автоматически извлекаем домен из BASE_URL, чтобы не хардкодить его.
+    # Это стало безопасным после решения проблем с CI/CD.
+    parsed_domain = urlparse(config.BASE_URL).hostname
+    if not parsed_domain:
+        raise ValueError(f"Не удалось извлечь домен из BASE_URL: {config.BASE_URL}")
 
     # === DEBUG LOGGING FOR CI ===
     # Логируем значения, чтобы убедиться, что секреты GitHub прочитаны верно.
-    logger.info(f"Attempting to set cookie for domain {config.BASE_URL} with value: '{cookie_value}'")
+    logger.info(f"Attempting to set cookie for domain '{parsed_domain}' with value: '{cookie_value}'")
     if not cookie_value:
         raise ValueError("CRITICAL: Cookie value is empty. Check the STANDARD_USER GitHub Secret.")
 
@@ -83,7 +94,8 @@ def authenticated_page(page: Page) -> Page:
         {
             "name": "session-username",
             "value": cookie_value,
-            "url": config.BASE_URL
+            "domain": parsed_domain,
+            "path": "/"
         }
     ])
     return page
