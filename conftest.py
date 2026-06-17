@@ -69,7 +69,9 @@ def authenticated_page(page: Page) -> Page:
     page.goto(config.BASE_URL)
 
     # Получаем значение пользователя из конфига
-    cookie_value = config.STANDARD_USER
+    # В CI/CD окружениях (GitHub Actions) секреты могут содержать лишние пробелы или символы новой строки (\n).
+    # Метод .strip() надежно очищает строку от этих символов по краям.
+    cookie_value = config.STANDARD_USER.strip()
 
     # === DEBUG LOGGING FOR CI ===
     # Логируем значения, чтобы убедиться, что секреты GitHub прочитаны верно.
