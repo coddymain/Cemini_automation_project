@@ -83,8 +83,7 @@ def authenticated_page(page: Page) -> Page:
         {
             "name": "session-username",
             "value": cookie_value,
-            "domain": "www.saucedemo.com", # Жестко задаем домен, чтобы исключить ошибки парсинга BASE_URL
-            "path": "/"
+            "url": config.BASE_URL
         }
     ])
     return page
