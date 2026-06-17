@@ -37,3 +37,31 @@
 2026-06-17 13:25:21 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
 2026-06-17 13:25:22 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
 2026-06-17 13:25:22 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-06-17 13:45:44 | DEBUG    | conftest:authenticated_page:64 - Устанавливаем cookie 'session-username' для обхода UI-логина
+2026-06-17 13:45:44 | INFO     | test_login:test_invalid_password:24 - === Запуск теста: Авторизация с неверным паролем ===
+2026-06-17 13:45:44 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-06-17 13:45:44 | INFO     | test_login:test_successful_login:10 - === Запуск теста: Успешная авторизация ===
+2026-06-17 13:45:44 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-06-17 13:45:44 | INFO     | test_login:test_locked_out_user:17 - === Запуск теста: Авторизация заблокированного пользователя ===
+2026-06-17 13:45:44 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-06-17 13:45:44 | INFO     | test_e2e:test_full_checkout_flow:23 - === Запуск E2E теста: Полный цикл покупки ===
+2026-06-17 13:45:44 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-06-17 13:45:44 | INFO     | test_api_bypass:test_direct_inventory_access:9 - === Запуск теста: Прямой доступ к инвентарю (API Bypass) ===
+2026-06-17 13:45:44 | INFO     | test_api_bypass:test_direct_inventory_access:12 - Переходим напрямую на страницу инвентаря (логин пропущен)
+2026-06-17 13:45:45 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-06-17 13:45:45 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-06-17 13:45:45 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-06-17 13:45:45 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: locked_out_user
+2026-06-17 13:45:45 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-06-17 13:45:45 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-06-17 13:45:45 | INFO     | pages.inventory_page:add_backpack_to_cart:25 - Добавляем рюкзак 'Sauce Labs Backpack' в корзину
+2026-06-17 13:45:45 | SUCCESS  | pages.inventory_page:add_backpack_to_cart:27 - Рюкзак добавлен
+2026-06-17 13:45:45 | INFO     | pages.inventory_page:go_to_cart:30 - Кликаем по иконке корзины для перехода
+2026-06-17 13:45:45 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-06-17 13:45:45 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-06-17 13:45:45 | INFO     | pages.cart_page:click_checkout:18 - Нажимаем кнопку 'Checkout' в корзине
+2026-06-17 13:45:46 | INFO     | pages.checkout_page:fill_personal_info:36 - Заполняем данные покупателя: Ivan Ivanov
+2026-06-17 13:45:46 | SUCCESS  | pages.checkout_page:fill_personal_info:41 - Данные покупателя заполнены, перешли к обзору заказа
+2026-06-17 13:45:46 | INFO     | pages.checkout_overview_page:finish_checkout:21 - Подтверждаем заказ: нажимаем кнопку 'Finish'
+2026-06-17 13:45:46 | SUCCESS  | pages.checkout_overview_page:finish_checkout:23 - Заказ успешно подтвержден
+2026-06-17 13:45:46 | INFO     | pages.checkout_complete_page:go_back_home:25 - Возвращаемся на главную страницу (нажимаем 'Back Home')

@@ -66,7 +66,8 @@ def authenticated_page(page: Page) -> Page:
         {
             "name": "session-username",
             "value": config.STANDARD_USER,
-            "url": config.BASE_URL
+            "domain": "www.saucedemo.com",
+            "path": "/"
         }
     ])
     return page
