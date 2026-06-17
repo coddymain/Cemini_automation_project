@@ -1,0 +1,3 @@
+[32m2026-06-17 13:32:50[0m | [1mINFO    [0m | [36mconftest[0m:[36mauthenticated_page[0m:[36m78[0m - [1mAttempting to set cookie for domain 'www.saucedemo.com' with value: 'standard_user'[0m
+[32m2026-06-17 13:32:50[0m | [1mINFO    [0m | [36mtest_api_bypass[0m:[36mtest_direct_inventory_access[0m:[36m9[0m - [1m=== Запуск теста: Прямой доступ к инвентарю (API Bypass) ===[0m
+[32m2026-06-17 13:32:50[0m | [1mINFO    [0m | [36mtest_api_bypass[0m:[36mtest_direct_inventory_access[0m:[36m12[0m - [1mПереходим напрямую на страницу инвентаря (логин пропущен)[0m

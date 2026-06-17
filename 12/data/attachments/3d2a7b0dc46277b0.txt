@@ -1,2 +1,0 @@
-[32m2026-06-17 13:26:52[0m | [1mINFO    [0m | [36mconftest[0m:[36mauthenticated_page[0m:[36m76[0m - [1mAttempting to set cookie for domain 'www.saucedemo.com' with value: 'standard_user
-'[0m
