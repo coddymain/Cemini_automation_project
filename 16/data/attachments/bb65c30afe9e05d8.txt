@@ -1,0 +1,6 @@
+[32m2026-06-17 13:48:31[0m | [1mINFO    [0m | [36mtest_login[0m:[36mtest_invalid_password[0m:[36m24[0m - [1m=== Запуск теста: Авторизация с неверным паролем ===[0m
+[32m2026-06-17 13:48:31[0m | [1mINFO    [0m | [36mpages.base_page[0m:[36mopen[0m:[36m18[0m - [1mОткрываем страницу: https://www.saucedemo.com/
+[0m
+[32m2026-06-17 13:48:32[0m | [1mINFO    [0m | [36mpages.login_page[0m:[36mlogin[0m:[36m31[0m - [1mВыполняем вход под пользователем: standard_user
+[0m
+[32m2026-06-17 13:48:32[0m | [32m[1mSUCCESS [0m | [36mpages.login_page[0m:[36mlogin[0m:[36m35[0m - [32m[1mКнопка входа успешно нажата[0m
