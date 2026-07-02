@@ -17,6 +17,10 @@ class Settings(BaseSettings):
     # Пароли
     VALID_PASSWORD: str
 
+    # API сервера
+    # Задаем значение по умолчанию, чтобы локально ничего не падало
+    MOCK_SERVER_URL: str = "http://127.0.0.1:8000"
+
     # Настройка Pydantic: говорим ему, какой файл читать и в какой кодировке
     model_config = SettingsConfigDict(
         env_file=".env",

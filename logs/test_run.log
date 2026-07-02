@@ -65,3 +65,171 @@
 2026-06-17 13:45:46 | INFO     | pages.checkout_overview_page:finish_checkout:21 - Подтверждаем заказ: нажимаем кнопку 'Finish'
 2026-06-17 13:45:46 | SUCCESS  | pages.checkout_overview_page:finish_checkout:23 - Заказ успешно подтвержден
 2026-06-17 13:45:46 | INFO     | pages.checkout_complete_page:go_back_home:25 - Возвращаемся на главную страницу (нажимаем 'Back Home')
+2026-06-18 01:24:44 | DEBUG    | conftest:authenticated_page:65 - Устанавливаем cookie 'session-username' для обхода UI-логина
+2026-06-18 01:24:44 | DEBUG    | conftest:authenticated_page:65 - Устанавливаем cookie 'session-username' для обхода UI-логина
+2026-06-18 01:24:44 | INFO     | test_api_bypass:test_unauthorized_access_redirect:23 - === Запуск теста: Редирект неавторизованного пользователя ===
+2026-06-18 01:24:44 | INFO     | test_api_bypass:test_unauthorized_access_redirect:26 - Попытка прямого перехода на inventory.html без куки авторизации
+2026-06-18 01:24:45 | INFO     | conftest:authenticated_page:89 - Attempting to set cookie for domain 'www.saucedemo.com' with value: 'standard_user'
+2026-06-18 01:24:45 | INFO     | conftest:authenticated_page:89 - Attempting to set cookie for domain 'www.saucedemo.com' with value: 'standard_user'
+2026-06-18 01:24:45 | INFO     | test_api_bypass:test_direct_cart_access:38 - === Запуск теста: Прямой доступ в корзину (Deep Link) ===
+2026-06-18 01:24:45 | INFO     | test_api_bypass:test_direct_inventory_access:11 - === Запуск теста: Прямой доступ к инвентарю (API Bypass) ===
+2026-06-18 01:24:45 | INFO     | test_api_bypass:test_direct_cart_access:41 - Переходим напрямую на страницу корзины (cart.html)
+2026-06-18 01:24:45 | INFO     | test_api_bypass:test_direct_inventory_access:14 - Переходим напрямую на страницу инвентаря (логин пропущен)
+2026-06-19 03:07:17 | INFO     | test_login:test_successful_login:10 - === Запуск теста: Успешная авторизация ===
+2026-06-19 03:07:17 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-06-19 03:07:17 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-06-19 03:07:18 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 22:55:43 | INFO     | test_mock_api:test_create_and_get_customer:20 - Отправляем POST запрос для создания нового покупателя...
+2026-07-02 22:56:40 | INFO     | test_mock_api:test_create_and_get_customer:20 - Отправляем POST запрос для создания нового покупателя...
+2026-07-02 22:56:41 | DEBUG    | conftest:authenticated_page:65 - Устанавливаем cookie 'session-username' для обхода UI-логина
+2026-07-02 22:56:41 | DEBUG    | conftest:authenticated_page:65 - Устанавливаем cookie 'session-username' для обхода UI-логина
+2026-07-02 22:56:41 | INFO     | test_api_bypass:test_unauthorized_access_redirect:23 - === Запуск теста: Редирект неавторизованного пользователя ===
+2026-07-02 22:56:41 | INFO     | test_api_bypass:test_unauthorized_access_redirect:26 - Попытка прямого перехода на inventory.html без куки авторизации
+2026-07-02 22:56:41 | INFO     | test_login:test_invalid_password:24 - === Запуск теста: Авторизация с неверным паролем ===
+2026-07-02 22:56:41 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 22:56:41 | INFO     | test_login:test_locked_out_user:17 - === Запуск теста: Авторизация заблокированного пользователя ===
+2026-07-02 22:56:41 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 22:56:41 | INFO     | test_login:test_successful_login:10 - === Запуск теста: Успешная авторизация ===
+2026-07-02 22:56:41 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 22:56:41 | INFO     | test_e2e:test_full_checkout_flow:23 - === Запуск E2E теста: Полный цикл покупки ===
+2026-07-02 22:56:41 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 22:56:42 | INFO     | conftest:authenticated_page:89 - Attempting to set cookie for domain 'www.saucedemo.com' with value: 'standard_user'
+2026-07-02 22:56:42 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-07-02 22:56:42 | INFO     | conftest:authenticated_page:89 - Attempting to set cookie for domain 'www.saucedemo.com' with value: 'standard_user'
+2026-07-02 22:56:42 | INFO     | test_api_bypass:test_direct_cart_access:38 - === Запуск теста: Прямой доступ в корзину (Deep Link) ===
+2026-07-02 22:56:42 | INFO     | test_api_bypass:test_direct_cart_access:41 - Переходим напрямую на страницу корзины (cart.html)
+2026-07-02 22:56:42 | INFO     | test_api_bypass:test_direct_inventory_access:11 - === Запуск теста: Прямой доступ к инвентарю (API Bypass) ===
+2026-07-02 22:56:42 | INFO     | test_api_bypass:test_direct_inventory_access:14 - Переходим напрямую на страницу инвентаря (логин пропущен)
+2026-07-02 22:56:42 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: locked_out_user
+2026-07-02 22:56:42 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-07-02 22:56:42 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 22:56:42 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 22:56:43 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 22:56:43 | INFO     | pages.inventory_page:add_backpack_to_cart:25 - Добавляем рюкзак 'Sauce Labs Backpack' в корзину
+2026-07-02 22:56:43 | SUCCESS  | pages.inventory_page:add_backpack_to_cart:27 - Рюкзак добавлен
+2026-07-02 22:56:43 | INFO     | pages.inventory_page:go_to_cart:30 - Кликаем по иконке корзины для перехода
+2026-07-02 22:56:43 | INFO     | pages.cart_page:click_checkout:18 - Нажимаем кнопку 'Checkout' в корзине
+2026-07-02 22:56:43 | INFO     | pages.checkout_page:fill_personal_info:36 - Заполняем данные покупателя: Ivan Ivanov
+2026-07-02 22:56:43 | SUCCESS  | pages.checkout_page:fill_personal_info:41 - Данные покупателя заполнены, перешли к обзору заказа
+2026-07-02 22:56:43 | INFO     | pages.checkout_overview_page:finish_checkout:21 - Подтверждаем заказ: нажимаем кнопку 'Finish'
+2026-07-02 22:56:43 | SUCCESS  | pages.checkout_overview_page:finish_checkout:23 - Заказ успешно подтвержден
+2026-07-02 22:56:43 | INFO     | pages.checkout_complete_page:go_back_home:25 - Возвращаемся на главную страницу (нажимаем 'Back Home')
+2026-07-02 22:56:46 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-07-02 22:56:46 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 22:58:21 | DEBUG    | conftest:authenticated_page:70 - Устанавливаем cookie 'session-username' для обхода UI-логина
+2026-07-02 22:58:21 | INFO     | test_login:test_invalid_password:24 - === Запуск теста: Авторизация с неверным паролем ===
+2026-07-02 22:58:21 | INFO     | test_login:test_locked_out_user:17 - === Запуск теста: Авторизация заблокированного пользователя ===
+2026-07-02 22:58:21 | INFO     | test_e2e:test_full_checkout_flow:23 - === Запуск E2E теста: Полный цикл покупки ===
+2026-07-02 22:58:21 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 22:58:21 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 22:58:21 | INFO     | test_api_bypass:test_unauthorized_access_redirect:23 - === Запуск теста: Редирект неавторизованного пользователя ===
+2026-07-02 22:58:21 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 22:58:21 | INFO     | test_api_bypass:test_unauthorized_access_redirect:26 - Попытка прямого перехода на inventory.html без куки авторизации
+2026-07-02 22:58:21 | DEBUG    | conftest:authenticated_page:70 - Устанавливаем cookie 'session-username' для обхода UI-логина
+2026-07-02 22:58:21 | INFO     | test_login:test_successful_login:10 - === Запуск теста: Успешная авторизация ===
+2026-07-02 22:58:21 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 22:58:22 | INFO     | conftest:authenticated_page:94 - Attempting to set cookie for domain 'www.saucedemo.com' with value: 'standard_user'
+2026-07-02 22:58:22 | INFO     | test_api_bypass:test_direct_cart_access:38 - === Запуск теста: Прямой доступ в корзину (Deep Link) ===
+2026-07-02 22:58:22 | INFO     | test_api_bypass:test_direct_cart_access:41 - Переходим напрямую на страницу корзины (cart.html)
+2026-07-02 22:58:22 | INFO     | conftest:authenticated_page:94 - Attempting to set cookie for domain 'www.saucedemo.com' with value: 'standard_user'
+2026-07-02 22:58:22 | INFO     | test_api_bypass:test_direct_inventory_access:11 - === Запуск теста: Прямой доступ к инвентарю (API Bypass) ===
+2026-07-02 22:58:22 | INFO     | test_api_bypass:test_direct_inventory_access:14 - Переходим напрямую на страницу инвентаря (логин пропущен)
+2026-07-02 22:58:22 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-07-02 22:58:22 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: locked_out_user
+2026-07-02 22:58:22 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-07-02 22:58:22 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-07-02 22:58:22 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 22:58:22 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 22:58:22 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 22:58:22 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 22:58:22 | INFO     | pages.inventory_page:add_backpack_to_cart:25 - Добавляем рюкзак 'Sauce Labs Backpack' в корзину
+2026-07-02 22:58:22 | SUCCESS  | pages.inventory_page:add_backpack_to_cart:27 - Рюкзак добавлен
+2026-07-02 22:58:22 | INFO     | pages.inventory_page:go_to_cart:30 - Кликаем по иконке корзины для перехода
+2026-07-02 22:58:23 | INFO     | pages.cart_page:click_checkout:18 - Нажимаем кнопку 'Checkout' в корзине
+2026-07-02 22:58:23 | INFO     | pages.checkout_page:fill_personal_info:36 - Заполняем данные покупателя: Ivan Ivanov
+2026-07-02 22:58:23 | SUCCESS  | pages.checkout_page:fill_personal_info:41 - Данные покупателя заполнены, перешли к обзору заказа
+2026-07-02 22:58:23 | INFO     | pages.checkout_overview_page:finish_checkout:21 - Подтверждаем заказ: нажимаем кнопку 'Finish'
+2026-07-02 22:58:23 | SUCCESS  | pages.checkout_overview_page:finish_checkout:23 - Заказ успешно подтвержден
+2026-07-02 22:58:23 | INFO     | pages.checkout_complete_page:go_back_home:25 - Возвращаемся на главную страницу (нажимаем 'Back Home')
+2026-07-02 23:00:10 | INFO     | test_mock_api:test_create_and_get_customer:20 - Отправляем POST запрос для создания нового покупателя...
+2026-07-02 23:00:10 | DEBUG    | test_mock_api:test_create_and_get_customer:31 - Ответ сервера при создании: {'id': 1, 'first_name': 'Ivan', 'last_name': 'Ivanov', 'postal_code': '123456'}
+2026-07-02 23:00:10 | INFO     | test_mock_api:test_create_and_get_customer:35 - Отправляем GET запрос для извлечения покупателя с ID: 1
+2026-07-02 23:00:10 | SUCCESS  | test_mock_api:test_create_and_get_customer:44 - Данные по покупателю успешно извлечены с сервера
+2026-07-02 23:00:47 | INFO     | test_mock_api:test_create_and_get_customer:20 - Отправляем POST запрос для создания нового покупателя...
+2026-07-02 23:00:47 | DEBUG    | test_mock_api:test_create_and_get_customer:31 - Ответ сервера при создании: {'id': 1, 'first_name': 'Ivan', 'last_name': 'Ivanov', 'postal_code': '123456'}
+2026-07-02 23:00:47 | INFO     | test_mock_api:test_create_and_get_customer:35 - Отправляем GET запрос для извлечения покупателя с ID: 1
+2026-07-02 23:00:47 | SUCCESS  | test_mock_api:test_create_and_get_customer:44 - Данные по покупателю успешно извлечены с сервера
+2026-07-02 23:00:47 | DEBUG    | conftest:authenticated_page:70 - Устанавливаем cookie 'session-username' для обхода UI-логина
+2026-07-02 23:00:47 | INFO     | test_e2e:test_full_checkout_flow:23 - === Запуск E2E теста: Полный цикл покупки ===
+2026-07-02 23:00:47 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 23:00:47 | INFO     | test_login:test_invalid_password:24 - === Запуск теста: Авторизация с неверным паролем ===
+2026-07-02 23:00:47 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 23:00:47 | DEBUG    | conftest:authenticated_page:70 - Устанавливаем cookie 'session-username' для обхода UI-логина
+2026-07-02 23:00:47 | INFO     | test_login:test_successful_login:10 - === Запуск теста: Успешная авторизация ===
+2026-07-02 23:00:47 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 23:00:47 | INFO     | test_login:test_locked_out_user:17 - === Запуск теста: Авторизация заблокированного пользователя ===
+2026-07-02 23:00:47 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 23:00:47 | INFO     | test_api_bypass:test_unauthorized_access_redirect:23 - === Запуск теста: Редирект неавторизованного пользователя ===
+2026-07-02 23:00:47 | INFO     | test_api_bypass:test_unauthorized_access_redirect:26 - Попытка прямого перехода на inventory.html без куки авторизации
+2026-07-02 23:00:58 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: locked_out_user
+2026-07-02 23:00:58 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-07-02 23:00:58 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-07-02 23:00:58 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-07-02 23:00:58 | INFO     | conftest:authenticated_page:94 - Attempting to set cookie for domain 'www.saucedemo.com' with value: 'standard_user'
+2026-07-02 23:00:58 | INFO     | conftest:authenticated_page:94 - Attempting to set cookie for domain 'www.saucedemo.com' with value: 'standard_user'
+2026-07-02 23:00:58 | INFO     | test_api_bypass:test_direct_inventory_access:11 - === Запуск теста: Прямой доступ к инвентарю (API Bypass) ===
+2026-07-02 23:00:58 | INFO     | test_api_bypass:test_direct_inventory_access:14 - Переходим напрямую на страницу инвентаря (логин пропущен)
+2026-07-02 23:00:58 | INFO     | test_api_bypass:test_direct_cart_access:38 - === Запуск теста: Прямой доступ в корзину (Deep Link) ===
+2026-07-02 23:00:58 | INFO     | test_api_bypass:test_direct_cart_access:41 - Переходим напрямую на страницу корзины (cart.html)
+2026-07-02 23:00:59 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 23:00:59 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 23:00:59 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 23:00:59 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 23:00:59 | INFO     | pages.inventory_page:add_backpack_to_cart:25 - Добавляем рюкзак 'Sauce Labs Backpack' в корзину
+2026-07-02 23:00:59 | SUCCESS  | pages.inventory_page:add_backpack_to_cart:27 - Рюкзак добавлен
+2026-07-02 23:00:59 | INFO     | pages.inventory_page:go_to_cart:30 - Кликаем по иконке корзины для перехода
+2026-07-02 23:00:59 | INFO     | pages.cart_page:click_checkout:18 - Нажимаем кнопку 'Checkout' в корзине
+2026-07-02 23:00:59 | INFO     | pages.checkout_page:fill_personal_info:36 - Заполняем данные покупателя: Ivan Ivanov
+2026-07-02 23:00:59 | SUCCESS  | pages.checkout_page:fill_personal_info:41 - Данные покупателя заполнены, перешли к обзору заказа
+2026-07-02 23:00:59 | INFO     | pages.checkout_overview_page:finish_checkout:21 - Подтверждаем заказ: нажимаем кнопку 'Finish'
+2026-07-02 23:00:59 | SUCCESS  | pages.checkout_overview_page:finish_checkout:23 - Заказ успешно подтвержден
+2026-07-02 23:00:59 | INFO     | pages.checkout_complete_page:go_back_home:25 - Возвращаемся на главную страницу (нажимаем 'Back Home')
+2026-07-02 23:02:53 | INFO     | test_mock_api:test_create_and_get_customer:20 - Отправляем POST запрос для создания нового покупателя...
+2026-07-02 23:02:53 | DEBUG    | test_mock_api:test_create_and_get_customer:31 - Ответ сервера при создании: {'id': 1, 'first_name': 'Ivan', 'last_name': 'Ivanov', 'postal_code': '123456'}
+2026-07-02 23:02:53 | INFO     | test_mock_api:test_create_and_get_customer:35 - Отправляем GET запрос для извлечения покупателя с ID: 1
+2026-07-02 23:02:53 | SUCCESS  | test_mock_api:test_create_and_get_customer:44 - Данные по покупателю успешно извлечены с сервера
+2026-07-02 23:02:53 | DEBUG    | conftest:authenticated_page:70 - Устанавливаем cookie 'session-username' для обхода UI-логина
+2026-07-02 23:02:53 | DEBUG    | conftest:authenticated_page:70 - Устанавливаем cookie 'session-username' для обхода UI-логина
+2026-07-02 23:02:53 | INFO     | test_login:test_locked_out_user:17 - === Запуск теста: Авторизация заблокированного пользователя ===
+2026-07-02 23:02:53 | INFO     | test_login:test_invalid_password:24 - === Запуск теста: Авторизация с неверным паролем ===
+2026-07-02 23:02:53 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 23:02:53 | INFO     | test_login:test_successful_login:10 - === Запуск теста: Успешная авторизация ===
+2026-07-02 23:02:53 | INFO     | test_api_bypass:test_unauthorized_access_redirect:23 - === Запуск теста: Редирект неавторизованного пользователя ===
+2026-07-02 23:02:53 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 23:02:53 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 23:02:53 | INFO     | test_api_bypass:test_unauthorized_access_redirect:26 - Попытка прямого перехода на inventory.html без куки авторизации
+2026-07-02 23:02:53 | INFO     | test_e2e:test_full_checkout_flow:23 - === Запуск E2E теста: Полный цикл покупки ===
+2026-07-02 23:02:53 | INFO     | pages.base_page:open:18 - Открываем страницу: https://www.saucedemo.com/
+2026-07-02 23:03:07 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: locked_out_user
+2026-07-02 23:03:07 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-07-02 23:03:07 | INFO     | conftest:authenticated_page:94 - Attempting to set cookie for domain 'www.saucedemo.com' with value: 'standard_user'
+2026-07-02 23:03:07 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-07-02 23:03:07 | INFO     | pages.login_page:login:31 - Выполняем вход под пользователем: standard_user
+2026-07-02 23:03:07 | INFO     | test_api_bypass:test_direct_cart_access:38 - === Запуск теста: Прямой доступ в корзину (Deep Link) ===
+2026-07-02 23:03:07 | INFO     | test_api_bypass:test_direct_cart_access:41 - Переходим напрямую на страницу корзины (cart.html)
+2026-07-02 23:03:07 | INFO     | conftest:authenticated_page:94 - Attempting to set cookie for domain 'www.saucedemo.com' with value: 'standard_user'
+2026-07-02 23:03:07 | INFO     | test_api_bypass:test_direct_inventory_access:11 - === Запуск теста: Прямой доступ к инвентарю (API Bypass) ===
+2026-07-02 23:03:07 | INFO     | test_api_bypass:test_direct_inventory_access:14 - Переходим напрямую на страницу инвентаря (логин пропущен)
+2026-07-02 23:03:07 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 23:03:07 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 23:03:07 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 23:03:07 | SUCCESS  | pages.login_page:login:35 - Кнопка входа успешно нажата
+2026-07-02 23:03:07 | INFO     | pages.inventory_page:add_backpack_to_cart:25 - Добавляем рюкзак 'Sauce Labs Backpack' в корзину
+2026-07-02 23:03:07 | SUCCESS  | pages.inventory_page:add_backpack_to_cart:27 - Рюкзак добавлен
+2026-07-02 23:03:07 | INFO     | pages.inventory_page:go_to_cart:30 - Кликаем по иконке корзины для перехода
+2026-07-02 23:03:07 | INFO     | pages.cart_page:click_checkout:18 - Нажимаем кнопку 'Checkout' в корзине
+2026-07-02 23:03:07 | INFO     | pages.checkout_page:fill_personal_info:36 - Заполняем данные покупателя: Ivan Ivanov
+2026-07-02 23:03:08 | SUCCESS  | pages.checkout_page:fill_personal_info:41 - Данные покупателя заполнены, перешли к обзору заказа
+2026-07-02 23:03:08 | INFO     | pages.checkout_overview_page:finish_checkout:21 - Подтверждаем заказ: нажимаем кнопку 'Finish'
+2026-07-02 23:03:08 | SUCCESS  | pages.checkout_overview_page:finish_checkout:23 - Заказ успешно подтвержден
+2026-07-02 23:03:08 | INFO     | pages.checkout_complete_page:go_back_home:25 - Возвращаемся на главную страницу (нажимаем 'Back Home')

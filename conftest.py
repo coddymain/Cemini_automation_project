@@ -1,11 +1,16 @@
 import pytest
 import allure
+import subprocess
+import sys
+import time
+import urllib.error
+import urllib.request
 from urllib.parse import urlparse
 from slugify import slugify
-from typing import Dict, Any
+from typing import Dict, Any, Generator
 from core.settings import config
 from core.logger import setup_logger
-from playwright.sync_api import Page
+from playwright.sync_api import Page, Playwright, APIRequestContext
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
@@ -140,3 +145,72 @@ def pytest_runtest_makereport(item, call):
                 )
             except Exception as e:
                 print(f"Не удалось прикрепить логи для Allure: {e}")
+
+
+def _wait_for_mock_server(mock_url: str, timeout: float = 10.0) -> None:
+    deadline = time.monotonic() + timeout
+    healthcheck_url = f"{mock_url.rstrip('/')}/docs"
+
+    while time.monotonic() < deadline:
+        try:
+            with urllib.request.urlopen(healthcheck_url, timeout=1):
+                return
+        except (urllib.error.URLError, TimeoutError):
+            time.sleep(0.2)
+
+    raise RuntimeError(f"Mock API server did not start at {mock_url}")
+
+
+@pytest.fixture(scope="session")
+def mock_api_server() -> Generator[str, None, None]:
+    """
+    Автоматически поднимает локальный FastAPI mock server для API-тестов.
+    """
+    mock_url = config.MOCK_SERVER_URL.rstrip("/")
+    parsed_url = urlparse(mock_url)
+
+    if not parsed_url.hostname or not parsed_url.port:
+        raise ValueError(f"Некорректный MOCK_SERVER_URL: {mock_url}")
+
+    process = subprocess.Popen(
+        [
+            sys.executable,
+            "-m",
+            "uvicorn",
+            "mock_server.main:app",
+            "--host",
+            parsed_url.hostname,
+            "--port",
+            str(parsed_url.port),
+            "--log-level",
+            "warning",
+        ],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+
+    try:
+        _wait_for_mock_server(mock_url)
+        yield mock_url
+    finally:
+        process.terminate()
+        try:
+            process.wait(timeout=5)
+        except subprocess.TimeoutExpired:
+            process.kill()
+            process.wait(timeout=5)
+
+
+@pytest.fixture
+def mock_api_context(playwright: Playwright, mock_api_server: str) -> Generator[APIRequestContext, None, None]:
+    """
+    Фикстура для создания изолированного контекста API-запросов к локальному мок-серверу.
+    """
+    # Инициализируем контекст запросов Playwright. Указываем base_url, чтобы не хардкодить его в тестах.
+    request_context = playwright.request.new_context(base_url=mock_api_server)
+    
+    # Отдаем контекст в тест
+    yield request_context
+    
+    # Обязательно очищаем ресурсы после завершения теста
+    request_context.dispose()

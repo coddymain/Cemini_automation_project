@@ -61,3 +61,36 @@ def test_direct_inventory_access(authenticated_page: Page, inventory_page: Inven
     # 2. Проверяем, что нас не выкинуло на страницу логина
     expect(inventory_page.title).to_have_text("Products")
 ```
+
+## 6. Расширенные сценарии и проверки
+
+Чтобы убедиться, что наш метод обхода логина работает корректно и имеет смысл, мы добавляем еще два типа тестов.
+
+### Негативный тест (Проверка защиты)
+Мы должны доказать, что на сайт нельзя попасть по прямой ссылке без авторизации. Этот тест использует обычную, "чистую" фикстуру `page` и проверяет, что система безопасности сайта перенаправляет нас на страницу входа с сообщением об ошибке.
+
+```python
+# tests/test_api_bypass.py
+def test_unauthorized_access_redirect(page: Page, login_page: LoginPage):
+    """Тест: попытка зайти на внутреннюю страницу без авторизации (без куки)."""
+    # 1. Пытаемся зайти на инвентарь БЕЗ фикстуры authenticated_page
+    page.goto(f"{config.BASE_URL}inventory.html")
+    
+    # 2. Проверяем, что нас выкинуло на страницу входа и показали системную ошибку
+    expect(login_page.error_message).to_have_text(
+        "Epic sadface: You can only access '/inventory.html' when you are logged in."
+    )
+```
+
+### Тест на "глубокие ссылки" (Deep Linking)
+Этот тест демонстрирует всю мощь подхода: мы можем мгновенно "телепортироваться" на любую внутреннюю страницу приложения, например, в корзину, минуя все промежуточные шаги.
+
+```python
+def test_direct_cart_access(authenticated_page: Page, cart_page: CartPage):
+    """Тест: мгновенный доступ в корзину (Deep Linking) с помощью обхода логина."""
+    # 1. Сразу летим в корзину, минуя логин и страницу списка товаров
+    authenticated_page.goto(f"{config.BASE_URL}cart.html")
+    
+    # 2. Проверяем, что корзина открылась успешно
+    expect(cart_page.checkout_button).to_be_visible()
+```
