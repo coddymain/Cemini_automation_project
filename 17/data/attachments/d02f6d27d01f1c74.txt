@@ -1,0 +1,3 @@
+[32m2026-07-02 20:06:34[0m | [1mINFO    [0m | [36mtest_mock_api[0m:[36mtest_create_and_get_customer[0m:[36m20[0m - [1mОтправляем POST запрос для создания нового покупателя...[0m
+[32m2026-07-02 20:06:34[0m | [1mINFO    [0m | [36mtest_mock_api[0m:[36mtest_create_and_get_customer[0m:[36m35[0m - [1mОтправляем GET запрос для извлечения покупателя с ID: 1[0m
+[32m2026-07-02 20:06:34[0m | [32m[1mSUCCESS [0m | [36mtest_mock_api[0m:[36mtest_create_and_get_customer[0m:[36m44[0m - [32m[1mДанные по покупателю успешно извлечены с сервера[0m
