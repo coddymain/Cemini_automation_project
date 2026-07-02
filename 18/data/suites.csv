@@ -1,0 +1,12 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"
+    Тест проверяет полный цикл работы с API: создание сущности (POST) 
+    и последующее ее извлечение (GET) с проверкой сохраненности данных.
+    ","67","test_create_and_get_customer","tests","2026-07-02","passed","2026-07-02","","test_mock_api","",""
+"E2E тест: Полный цикл покупки товара.","1994","test_full_checkout_flow[chromium]","tests","2026-07-02","passed","2026-07-02","","test_e2e","",""
+"Тест: попытка зайти на внутреннюю страницу без авторизации (без куки).","769","test_unauthorized_access_redirect[chromium]","tests","2026-07-02","passed","2026-07-02","","test_api_bypass","",""
+"","1663","test_successful_login[chromium]","tests","2026-07-02","passed","2026-07-02","","test_login","",""
+"","1682","test_invalid_password[chromium]","tests","2026-07-02","passed","2026-07-02","","test_login","",""
+"Тест, который проверяет мгновенный доступ к инвентарю без UI-логина.","728","test_direct_inventory_access[chromium]","tests","2026-07-02","passed","2026-07-02","","test_api_bypass","",""
+"Тест: мгновенный доступ в корзину (Deep Linking) с помощью обхода логина.","688","test_direct_cart_access[chromium]","tests","2026-07-02","passed","2026-07-02","","test_api_bypass","",""
+"","1224","test_locked_out_user[chromium]","tests","2026-07-02","passed","2026-07-02","","test_login","",""
