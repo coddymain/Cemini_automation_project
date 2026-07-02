@@ -33,12 +33,7 @@ jobs:
     - name: Шаг 5. Установка браузера Chromium для Playwright
       run: poetry run playwright install --with-deps chromium
 
-    - name: Шаг 6. Запуск локального Mock-сервера FastAPI (в фоне)
-      # Символ '&' в конце команды заставляет процесс работать в фоне,
-      # чтобы GitHub Actions перешел к следующему шагу (тестам).
-      run: poetry run uvicorn mock_server.main:app &
-
-    - name: Шаг 7. Запуск автотестов
+    - name: Шаг 6. Запуск автотестов
       env:
         BASE_URL: ${{ secrets.BASE_URL }}
         STANDARD_USER: ${{ secrets.STANDARD_USER }}
@@ -48,7 +43,7 @@ jobs:
         MOCK_SERVER_URL: "http://127.0.0.1:8000"
       run: poetry run pytest -v
 
-    - name: Шаг 8. Генерация Allure отчета
+    - name: Шаг 7. Генерация Allure отчета
       uses: simple-elf/allure-report-action@master
       if: always() # Важно! Генерируем отчет даже если тесты упали
       with:
@@ -56,7 +51,7 @@ jobs:
         allure_history: allure-history
         keep_reports: 20 # Хранить историю последних 20 запусков
 
-    - name: Шаг 9. Публикация отчета на GitHub Pages
+    - name: Шаг 8. Публикация отчета на GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       if: always()
       with:

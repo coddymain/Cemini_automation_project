@@ -38,16 +38,36 @@ def authenticated_page(page: Page) -> Page:
     Фикстура, которая обходит UI-логин путем прямой установки Cookie.
     Отдает страницу (Page), уже готовую к работе с внутренними разделами сайта.
     """
+    page.goto(config.BASE_URL)
+
+    cookie_value = config.STANDARD_USER.strip()
+    parsed_domain = urlparse(config.BASE_URL).hostname
+
+    if not parsed_domain:
+        raise ValueError(f"Не удалось извлечь домен из BASE_URL: {config.BASE_URL}")
+
+    if not cookie_value:
+        raise ValueError("Cookie value is empty. Check STANDARD_USER.")
+
     page.context.add_cookies([
         {
             "name": "session-username",
-            "value": config.STANDARD_USER,
-            "domain": "www.saucedemo.com",
+            "value": cookie_value,
+            "domain": parsed_domain,
             "path": "/"
         }
     ])
     return page
 ```
+
+### Почему фикстура выглядит именно так?
+*   `page.goto(config.BASE_URL)` — переводит браузер с системной страницы `about:blank` на настоящий домен приложения. В CI/CD это важно: headless Chromium может отклонить установку Cookie для чужого домена, если текущая страница еще не открыта.
+*   `config.STANDARD_USER.strip()` — очищает значение секрета от случайных пробелов и переносов строк. Это защищает от ошибки `Invalid cookie fields`, которая часто возникает в GitHub Actions.
+*   `urlparse(config.BASE_URL).hostname` — извлекает домен динамически. Мы не хардкодим `www.saucedemo.com`, поэтому фикстура переживет переезд на другой стенд.
+*   Проверка `if not parsed_domain` — быстро падает с понятной ошибкой, если `BASE_URL` задан некорректно.
+*   Проверка `if not cookie_value` — помогает сразу увидеть проблему с пустым `STANDARD_USER`, вместо загадочного падения браузера ниже по стеку.
+
+Итог: это уже не просто "подложить куку", а CI-ready вариант обхода логина.
 
 ## 5. Практика: Как выглядит тест
 Теперь мы можем написать тест, который мгновенно открывает страницу инвентаря без авторизации:

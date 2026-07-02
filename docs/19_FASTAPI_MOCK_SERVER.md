@@ -99,25 +99,97 @@ def get_customer(customer_id: int) -> Customer:
 
 ---
 
-## 3. Разбор настройки Playwright (conftest.py)
+## 3. Разбор настройки Playwright и автозапуска сервера (conftest.py)
 
-Чтобы тестам было удобно стучаться в API, мы создали для них инструмент (фикстуру) в файле `conftest.py`.
+Чтобы тестам было удобно стучаться в API, мы создали для них инструменты (фикстуры) в файле `conftest.py`.
+
+Важное улучшение: тесты теперь **сами поднимают mock-сервер**. Это значит, что команда `poetry run pytest` является самодостаточной. Пользователю не нужно держать второй терминал с `uvicorn`.
+
+### 3.1. Ожидание готовности сервера
+
+```python
+def _wait_for_mock_server(mock_url: str, timeout: float = 10.0) -> None:
+    deadline = time.monotonic() + timeout
+    healthcheck_url = f"{mock_url.rstrip('/')}/docs"
+
+    while time.monotonic() < deadline:
+        try:
+            with urllib.request.urlopen(healthcheck_url, timeout=1):
+                return
+        except (urllib.error.URLError, TimeoutError):
+            time.sleep(0.2)
+
+    raise RuntimeError(f"Mock API server did not start at {mock_url}")
+```
+
+*   `_wait_for_mock_server` — маленькая служебная функция, которая не дает тесту стартовать раньше сервера.
+*   `healthcheck_url = ... /docs` — FastAPI автоматически создает страницу документации `/docs`; если она открывается, значит приложение уже живое.
+*   `deadline` и `timeout` — защита от бесконечного ожидания. Если сервер не поднялся за 10 секунд, тест падает с понятной ошибкой.
+*   `urllib.request.urlopen(...)` — стандартный HTTP-запрос без дополнительных зависимостей.
+*   `time.sleep(0.2)` — небольшая пауза между попытками, чтобы не спамить локальный порт.
+
+### 3.2. Фикстура `mock_api_server`
+
+```python
+@pytest.fixture(scope="session")
+def mock_api_server() -> Generator[str, None, None]:
+    mock_url = config.MOCK_SERVER_URL.rstrip("/")
+    parsed_url = urlparse(mock_url)
+
+    if not parsed_url.hostname or not parsed_url.port:
+        raise ValueError(f"Некорректный MOCK_SERVER_URL: {mock_url}")
+
+    process = subprocess.Popen(
+        [
+            sys.executable,
+            "-m",
+            "uvicorn",
+            "mock_server.main:app",
+            "--host",
+            parsed_url.hostname,
+            "--port",
+            str(parsed_url.port),
+            "--log-level",
+            "warning",
+        ],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+
+    try:
+        _wait_for_mock_server(mock_url)
+        yield mock_url
+    finally:
+        process.terminate()
+        process.wait(timeout=5)
+```
+
+*   `scope="session"` — сервер поднимается один раз на всю тестовую сессию конкретного pytest worker, а не перед каждым тестом. Это быстрее и ближе к реальной инфраструктуре.
+*   `config.MOCK_SERVER_URL` — адрес берется из единого конфигурационного слоя Pydantic, а не хардкодится в тесте.
+*   `urlparse(mock_url)` — разбирает строку `http://127.0.0.1:8000` на hostname и port.
+*   `subprocess.Popen(...)` — запускает `uvicorn` отдельным процессом, чтобы сервер работал параллельно с тестами.
+*   `sys.executable` — гарантирует, что `uvicorn` запускается тем же Python из Poetry-окружения, а не случайным системным Python.
+*   `python -m uvicorn mock_server.main:app` — стандартный способ запуска ASGI-приложения. `mock_server.main` — путь к файлу, `app` — объект FastAPI внутри файла.
+*   `stdout=subprocess.DEVNULL` и `stderr=subprocess.DEVNULL` — скрывают шум сервера из тестового вывода. Если нужно расследовать проблему запуска, эти строки можно временно убрать.
+*   `yield mock_url` — возвращает тестам готовый URL, а после завершения тестовой сессии выполняет блок `finally`.
+*   `process.terminate()` — корректно останавливает локальный сервер, чтобы порт `8000` не оставался занятым после прогона.
+
+### 3.3. Фикстура `mock_api_context`
 
 ```python
 @pytest.fixture
-def mock_api_context(playwright: Playwright) -> APIRequestContext:
-```
-*   `@pytest.fixture` — Делает эту функцию доступной для любого теста в проекте.
-*   `(playwright: Playwright)` — Мы просим Pytest дать нам доступ к "движку" Playwright.
-*   `-> APIRequestContext` — Возвращаем специальный объект Playwright, который предназначен именно для работы с сетью без открытия браузера.
-
-```python
-    mock_url = getattr(config, "MOCK_SERVER_URL", "http://127.0.0.1:8000")
-    request_context = playwright.request.new_context(base_url=mock_url)
+def mock_api_context(
+    playwright: Playwright,
+    mock_api_server: str,
+) -> Generator[APIRequestContext, None, None]:
+    request_context = playwright.request.new_context(base_url=mock_api_server)
     yield request_context
     request_context.dispose()
 ```
-*   `getattr(config, "MOCK_SERVER_URL", ...)` — Безопасно достаем URL сервера из наших настроек (Pydantic `Settings`).
+*   `@pytest.fixture` — Делает эту функцию доступной для любого теста в проекте.
+*   `(playwright: Playwright)` — Мы просим Pytest дать нам доступ к "движку" Playwright.
+*   `mock_api_server: str` — Зависимость от серверной фикстуры. Pytest сначала поднимет сервер, потом создаст API-клиент.
+*   `-> APIRequestContext` — Возвращаем специальный объект Playwright, который предназначен именно для работы с сетью без открытия браузера.
 *   `.new_context(base_url=...)` — Создаем HTTP-клиента. Указывая `base_url`, мы избавляем себя от необходимости писать `http://127.0.0.1:8000/customers` в тестах. Мы будем писать просто `/customers`.
 *   `yield request_context` — Отдаем инструмент тесту. Тест выполняется.
 *   `.dispose()` — После того как тест завершился, закрываем все сетевые соединения, чтобы не засорять память.
@@ -190,16 +262,35 @@ def test_create_and_get_customer(mock_api_context: APIRequestContext) -> None:
 
 ## 5. Запуск (Workflow)
 
-Так как клиент (тест) и сервер независимы, запускаем их в двух терминалах.
+Основной способ запуска теперь один:
 
-**Терминал 1: Запуск сервера**
-```bash
-poetry run uvicorn mock_server.main:app --reload
-```
-*(Сервер "повиснет" в терминале и будет ждать входящих соединений)*
-
-**Терминал 2: Запуск теста**
 ```bash
 poetry run pytest tests/test_mock_api.py -v -s
 ```
-*(Флаг `-s` нужен, чтобы логи от `logger.info` сразу выводились в консоль)*
+Фикстура сама:
+*   прочитает `MOCK_SERVER_URL`;
+*   запустит `uvicorn`;
+*   дождется доступности `/docs`;
+*   создаст `APIRequestContext`;
+*   остановит сервер после завершения тестов.
+
+Если нужно вручную посмотреть Swagger UI FastAPI, сервер можно запустить отдельно:
+```bash
+poetry run uvicorn mock_server.main:app --reload
+```
+
+После этого откройте в браузере:
+```text
+http://127.0.0.1:8000/docs
+```
+
+## 6. Типичные ошибки и диагностика
+
+### `ECONNREFUSED 127.0.0.1:8000`
+Означает, что тест попытался обратиться к серверу, но на порту `8000` никто не слушает. Сейчас это чаще всего значит, что `uvicorn` не смог стартовать. Проверьте, установлен ли пакет `uvicorn` и нет ли ошибки импорта в `mock_server/main.py`.
+
+### `Address already in use`
+Означает, что порт `8000` уже занят другим процессом. Обычно это происходит, если вы вручную запустили `poetry run uvicorn mock_server.main:app --reload` и параллельно запустили тесты. Остановите ручной сервер или временно задайте другой `MOCK_SERVER_URL`.
+
+### Тест проходит отдельно, но нестабилен в параллельном запуске
+При `pytest-xdist` тесты выполняются в нескольких worker-процессах. Для большого количества API-тестов лучше выделять каждому worker свой порт или запускать один общий тестовый сервис заранее в CI. В текущем учебном проекте один API-тест проходит стабильно, но это ограничение важно помнить при масштабировании.
